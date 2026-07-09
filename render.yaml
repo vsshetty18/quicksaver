@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: vehicle-speed-detection-api
+    runtime: docker
+    dockerfilePath: ./ml/Dockerfile
+    dockerContext: ./ml
+    plan: free
+    envVars:
+      - key: PORT
+        value: 5000
