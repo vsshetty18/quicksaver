@@ -49,6 +49,15 @@ def allowed_file(filename):
 
 
 # ------------------------------------------------------------
+# Route: Health check (useful for Render/uptime monitoring)
+# ------------------------------------------------------------
+@app.route("/", methods=["GET"])
+def health_check():
+    """Simple health check endpoint so Render knows the app is alive."""
+    return jsonify({"status": "ok", "message": "Vehicle Speed Detection API is running."}), 200
+
+
+# ------------------------------------------------------------
 # Route: POST /upload
 # ------------------------------------------------------------
 @app.route("/upload", methods=["POST"])
@@ -98,6 +107,9 @@ def process_video():
         return jsonify({"error": "Uploaded video not found. Please upload again."}), 404
 
     cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        return jsonify({"error": "Could not open video file. It may be corrupted."}), 400
+
     fps = cap.get(cv2.CAP_PROP_FPS) or 30
     frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -153,8 +165,6 @@ def process_video():
     # Step 5: Gather results
     vehicle_speeds_dict = speed_estimator.get_speeds()
 
-    # Fallback: if no vehicle completed a full line-crossing (short/test clips),
-    # avoid an empty result — use max detected vehicle count as vehicle_count.
     vehicle_speed_list = [
         {"id": vid, "speed": speed} for vid, speed in vehicle_speeds_dict.items()
     ]
@@ -165,8 +175,7 @@ def process_video():
     average_speed = round(sum(speeds_only) / len(speeds_only), 1) if speeds_only else 0
     max_speed = round(max(speeds_only), 1) if speeds_only else 0
 
-    # Approximate average distance between vehicles (simple heuristic,
-    # placeholder weather = 0 (Clear) unless changed by the user later)
+    # Approximate average distance between vehicles (simple heuristic)
     approx_distance = round(30 / total_vehicles, 1) if total_vehicles > 0 else 30
     weather = 0  # Default: Clear. Could be made configurable via request body.
 
@@ -212,3 +221,20 @@ def get_result():
 
 # ------------------------------------------------------------
 # Route: Serve processed output videos statically
+# ------------------------------------------------------------
+@app.route("/output/<path:filename>")
+def serve_output_video(filename):
+    """Serves processed videos from the output/ folder so the
+    frontend <video> tag can play them directly."""
+    return send_from_directory(OUTPUT_FOLDER, filename)
+
+
+# ------------------------------------------------------------
+# Run the Flask app
+# ------------------------------------------------------------
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    # debug=False is required for production (Render, Railway, etc.)
+    # Flask's debug reloader spawns a subprocess that can make Render's
+    # process monitor think the app crashed, causing "Application exited early".
+    app.run(host="0.0.0.0", port=port, debug=False)
