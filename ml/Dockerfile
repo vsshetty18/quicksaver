@@ -1,5 +1,6 @@
 FROM python:3.11-slim
 
+# Install build tools as a safety net in case any package needs to compile
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
@@ -12,10 +13,8 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . .
 
+# Train the model at build time so accident_model.pkl is always fresh
 RUN python train_model.py
 
-# Hugging Face Spaces expects port 7860
-EXPOSE 7860
-ENV PORT=7860
-
+EXPOSE 5000
 CMD ["python", "app.py"]
