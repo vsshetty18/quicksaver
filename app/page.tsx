@@ -1,14 +1,9 @@
+cat > app/page.tsx << 'EOF'
 import UploadCard from "@/components/UploadCard";
-
-// ------------------------------------------------------------
-// Home Page
-// Displays project title, description, and the upload card.
-// ------------------------------------------------------------
 
 export default function HomePage() {
   return (
     <div>
-      {/* Hero Section with Blue Gradient */}
       <section className="gradient-header text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">
@@ -19,7 +14,6 @@ export default function HomePage() {
             estimate their speed, and predict accident risk using Machine
             Learning — all in real time.
           </p>
-
           <div className="flex justify-center gap-4 mt-8">
             
               href="#upload-section"
@@ -37,10 +31,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Feature Highlights */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="card text-center">
-          <div className="text-3xl mb-2">🎥</div>
+          <div className="text-3xl mb-2">Camera</div>
           <h3 className="font-semibold mb-1">Vehicle Detection</h3>
           <p className="text-sm text-gray-500">
             Detects and tracks vehicles using OpenCV background subtraction
@@ -48,7 +41,7 @@ export default function HomePage() {
           </p>
         </div>
         <div className="card text-center">
-          <div className="text-3xl mb-2">⚡</div>
+          <div className="text-3xl mb-2">Speed</div>
           <h3 className="font-semibold mb-1">Speed Estimation</h3>
           <p className="text-sm text-gray-500">
             Calculates approximate vehicle speed using virtual reference
@@ -56,7 +49,7 @@ export default function HomePage() {
           </p>
         </div>
         <div className="card text-center">
-          <div className="text-3xl mb-2">⚠️</div>
+          <div className="text-3xl mb-2">Risk</div>
           <h3 className="font-semibold mb-1">Accident Risk Prediction</h3>
           <p className="text-sm text-gray-500">
             Uses a trained Random Forest model to predict accident risk from
@@ -65,13 +58,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Upload Section */}
-      <section
-        id="upload-section"
-        className="max-w-6xl mx-auto px-4 sm:px-6 py-12"
-      >
+      <section id="upload-section" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         <UploadCard />
       </section>
     </div>
   );
 }
+EOF
