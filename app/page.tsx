@@ -1,4 +1,3 @@
-cat > app/page.tsx << 'EOF'
 import UploadCard from "@/components/UploadCard";
 
 export default function HomePage() {
@@ -15,16 +14,10 @@ export default function HomePage() {
             Learning — all in real time.
           </p>
           <div className="flex justify-center gap-4 mt-8">
-            
-              href="#upload-section"
-              className="bg-white text-brand-700 font-semibold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors"
-            >
+            <a href="#upload-section" className="bg-white text-brand-700 font-semibold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors">
               Get Started
             </a>
-            
-              href="/about"
-              className="border border-white/60 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/10 transition-colors"
-            >
+            <a href="/about" className="border border-white/60 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/10 transition-colors">
               About Project
             </a>
           </div>
@@ -64,4 +57,3 @@ export default function HomePage() {
     </div>
   );
 }
-EOF
