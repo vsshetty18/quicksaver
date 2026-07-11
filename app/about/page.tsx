@@ -102,8 +102,8 @@ export default function AboutPage() {
         <h2 className="text-xl font-semibold mb-3">Project Information</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
           <div>
-            <p className="text-gray-400 mb-1">Developer Name</p>
-            <p className="font-medium text-gray-800">VIGHNEHS AND TEAM</p>
+            <p className="text-gray-400 mb-1">Developers</p>
+            <p className="font-medium text-gray-800">VIGHNESH AND TEAM</p>
           </div>
           <div>
             <p className="text-gray-400 mb-1">Guide Name</p>
