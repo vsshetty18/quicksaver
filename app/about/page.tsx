@@ -103,15 +103,15 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
           <div>
             <p className="text-gray-400 mb-1">Developer Name</p>
-            <p className="font-medium text-gray-800">[Your Name Here]</p>
+            <p className="font-medium text-gray-800">VIGHNEHS AND TEAM</p>
           </div>
           <div>
             <p className="text-gray-400 mb-1">Guide Name</p>
-            <p className="font-medium text-gray-800">[Guide Name Here]</p>
+            <p className="font-medium text-gray-800">Dr . JAGANNATHAN . S</p>
           </div>
           <div>
             <p className="text-gray-400 mb-1">College</p>
-            <p className="font-medium text-gray-800">[College Name Here]</p>
+            <p className="font-medium text-gray-800">RAJARAJESWARI COLLEGE OF ENGINEERING</p>
           </div>
         </div>
       </section>
